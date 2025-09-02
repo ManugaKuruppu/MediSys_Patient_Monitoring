@@ -1,0 +1,43 @@
+/* Global polish to complement App.css */
+:root {
+	--radius-lg: 12px;
+}
+
+.page-heading {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: 1rem;
+}
+
+.btn-primary-solid {
+	background: linear-gradient(180deg, #2563eb 0%, #1d4ed8 100%);
+	color: #fff;
+	border: none;
+	padding: 0.6rem 1rem;
+	border-radius: 10px;
+	font-weight: 600;
+	box-shadow: 0 6px 16px rgba(37, 99, 235, 0.25);
+}
+
+.card-elevated {
+	background: #fff;
+	border-radius: var(--radius-lg);
+	box-shadow: 0 10px 24px rgba(2, 6, 23, 0.08);
+}
+
+.table-clean th, .table-clean td {
+	padding: 0.85rem 1rem;
+}
+
+.badge-soft {
+	background: #eef2ff;
+	color: #4338ca;
+	border-radius: 999px;
+	padding: 0.25rem 0.6rem;
+	font-weight: 600;
+}
+
+.modal-card {
+	border-radius: 14px;
+}
