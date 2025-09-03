@@ -20,7 +20,13 @@ const Header = () => {
     <header className="topbar">
       <div className="topbar-inner">
         <div className="brand">
-          <span className="brand-logo">🏥</span>
+          <span className="brand-logo">
+            <img
+              src={`${process.env.PUBLIC_URL}/favicon.ico`}
+              alt="MediSys"
+              className="brand-logo-img"
+            />
+          </span>
           <div className="brand-text">
             <strong>MediSys</strong>
             <span className="brand-sub">Patient Monitor</span>
