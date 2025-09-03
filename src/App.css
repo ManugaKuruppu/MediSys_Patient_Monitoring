@@ -1396,6 +1396,8 @@ header {
 }
 
 .footer p { color: var(--muted-text); margin: 0; font-size: 0.875rem; }
+.footer-logo-img { width: 22px; height: 22px; border-radius: 50%; object-fit: cover; vertical-align: -4px; margin-right: 8px; box-shadow: 0 0 0 2px rgba(0,0,0,0.04); }
+[data-theme='dark'] .footer-logo-img { box-shadow: 0 0 0 2px rgba(255,255,255,0.14); }
 
 .system-status {
   background: var(--success-color);

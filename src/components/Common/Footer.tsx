@@ -5,7 +5,10 @@ const Footer = () => {
   return (
     <footer className="footer" role="contentinfo">
       <div className="footer-content">
-        <h6>🏥 MediSys Diagnostics Ltd.</h6>
+        <h6>
+          <img src={`${process.env.PUBLIC_URL}/favicon.ico`} alt="MediSys" className="footer-logo-img" />
+          MediSys Diagnostics Ltd.
+        </h6>
         <p>
           Real-time Patient Monitoring Dashboard System
           <span> • </span>
