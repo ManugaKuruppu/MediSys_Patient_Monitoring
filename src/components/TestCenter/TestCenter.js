@@ -6,7 +6,7 @@ const TestCenter = ({ patients }) => {
     <div className="test-center">
       <div className="test-header">
         <div>
-          <h2>Test Center</h2>
+          <h2>Diagnostics</h2>
           <p className="muted">Simulate telemetry and preview how alerts are triggered.</p>
         </div>
         <div className="test-actions">

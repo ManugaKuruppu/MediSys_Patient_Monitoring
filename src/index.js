@@ -5,6 +5,13 @@ import './styles/globals.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 
+// Initialize theme early to avoid flash and default to dark
+try {
+  const savedTheme = localStorage.getItem('theme') || 'dark';
+  if (!localStorage.getItem('theme')) localStorage.setItem('theme', savedTheme);
+  document.documentElement.setAttribute('data-theme', savedTheme);
+} catch {}
+
 // Error Boundary Component
 class ErrorBoundary extends React.Component {
   constructor(props) {

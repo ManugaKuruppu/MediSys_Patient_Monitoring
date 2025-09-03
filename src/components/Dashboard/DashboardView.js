@@ -93,7 +93,7 @@ const DashboardView = ({ stats, alerts, onNavigate, patients }) => {
             <i className="fa-solid fa-bell"></i> View Alerts
           </button>
           <button className="refresh-btn" onClick={() => onNavigate && onNavigate('test')}>
-            <i className="fa-solid fa-vial"></i> Test Center
+            <i className="fa-solid fa-vial"></i> Diagnostics
           </button>
         </div>
       </div>

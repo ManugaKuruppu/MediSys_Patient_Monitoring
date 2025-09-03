@@ -11,7 +11,7 @@
 }
 
 .btn-primary-solid {
-	background: linear-gradient(180deg, #2563eb 0%, #1d4ed8 100%);
+	background: linear-gradient(180deg, var(--primary-color) 0%, var(--primary-700) 100%);
 	color: #fff;
 	border: none;
 	padding: 0.6rem 1rem;
@@ -21,7 +21,7 @@
 }
 
 .card-elevated {
-	background: #fff;
+	background: var(--surface-1);
 	border-radius: var(--radius-lg);
 	box-shadow: 0 10px 24px rgba(2, 6, 23, 0.08);
 }

@@ -5,7 +5,7 @@ const Navigation = ({ activeTab, setActiveTab }) => {
     { id: 'dashboard', label: 'Dashboard', icon: 'fa-tachometer-alt' },
     { id: 'patients', label: 'Patients', icon: 'fa-users' },
     { id: 'alerts', label: 'Alerts', icon: 'fa-bell' },
-    { id: 'test', label: 'Test Center', icon: 'fa-vial' }
+  { id: 'test', label: 'Diagnostics', icon: 'fa-vial' }
   ];
 
   return (

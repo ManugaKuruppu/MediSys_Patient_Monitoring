@@ -1,38 +1,31 @@
 import React from 'react';
 
 const Navigation = ({ activeTab, setActiveTab }) => {
-  const handleTabClick = (e, tabName) => {
-    e.preventDefault();
-    setActiveTab(tabName);
-  };
-
   const items = [
     { key: 'dashboard', label: 'Dashboard', icon: 'fa-solid fa-gauge' },
     { key: 'patients', label: 'Patients', icon: 'fa-solid fa-user-injured' },
     { key: 'alerts', label: 'Alerts', icon: 'fa-solid fa-triangle-exclamation' },
-    { key: 'test', label: 'Test Center', icon: 'fa-solid fa-vial' },
+  { key: 'test', label: 'Diagnostics', icon: 'fa-solid fa-vial' },
   ];
 
   return (
-    <aside className="sidebar" aria-label="Primary">
-      <nav className="sidebar-nav">
+    <nav className="dock" role="navigation" aria-label="Primary">
+      <div className="dock-inner">
         {items.map(item => (
-          <a
+          <button
             key={item.key}
-            href="#"
-            className={`side-link ${activeTab === item.key ? 'active' : ''}`}
-            onClick={(e) => handleTabClick(e, item.key)}
+            type="button"
+            title={item.label}
+            className={`dock-btn ${activeTab === item.key ? 'active' : ''}`}
+            aria-pressed={activeTab === item.key}
+            onClick={() => setActiveTab(item.key)}
           >
-            <i className={`${item.icon} side-icon`} aria-hidden="true"></i>
-            <span className="side-text">{item.label}</span>
-          </a>
+            <i className={item.icon} aria-hidden="true"></i>
+            <span className="dock-label">{item.label}</span>
+          </button>
         ))}
-      </nav>
-      <div className="sidebar-footer">
-        <div className="status-dot online" aria-hidden="true"></div>
-        <span>System Online</span>
       </div>
-    </aside>
+    </nav>
   );
 };
 

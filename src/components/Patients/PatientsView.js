@@ -1,6 +1,7 @@
 import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { useAppContext } from '../../context/AppContext';
 import PatientForm from './PatientForm';
+import PatientTile from './PatientTile';
 import { createPatient, updatePatient, deletePatient } from '../../services/api';
 
 const PatientsView = ({ patients }) => {
@@ -14,6 +15,7 @@ const PatientsView = ({ patients }) => {
   const [genderFilter, setGenderFilter] = useState('all'); // all | Male | Female | Other
   const [dense, setDense] = useState(() => (localStorage.getItem('patients_density') ?? 'compact') === 'compact');
   const [sort, setSort] = useState({ key: 'patient_id', dir: 'asc' });
+  const [view, setView] = useState(() => localStorage.getItem('patients_view') || 'table'); // 'table' | 'cards'
   const [showColsMenu, setShowColsMenu] = useState(false);
   const defaultCols = {
     patient_id: true,
@@ -115,6 +117,9 @@ const PatientsView = ({ patients }) => {
       dir: prev.key === key ? (prev.dir === 'asc' ? 'desc' : 'asc') : 'asc',
     }));
   };
+
+  // Persist view
+  useEffect(() => { localStorage.setItem('patients_view', view); }, [view]);
 
   const displayedPatients = useMemo(() => {
     let list = Array.isArray(patients) ? [...patients] : [];
@@ -269,6 +274,24 @@ const PatientsView = ({ patients }) => {
           <button onClick={handleAddPatient} className="add-patient-btn">
             <i className="fa-solid fa-user-plus"></i> Add Patient
           </button>
+          <div className="view-toggle" role="group" aria-label="Toggle view">
+            <button
+              type="button"
+              className={`refresh-btn outline ${view==='table' ? 'active' : ''}`}
+              onClick={() => setView('table')}
+              title="Table view"
+            >
+              <i className="fa-solid fa-table"></i>
+            </button>
+            <button
+              type="button"
+              className={`refresh-btn outline ${view==='cards' ? 'active' : ''}`}
+              onClick={() => setView('cards')}
+              title="Card grid view"
+            >
+              <i className="fa-solid fa-grid-2"></i>
+            </button>
+          </div>
         </div>
       </div>
 
@@ -373,7 +396,7 @@ const PatientsView = ({ patients }) => {
             <p>No patients found.</p>
             <button onClick={handleAddPatient} className="add-first-patient-btn">Add Your First Patient</button>
           </div>
-        ) : (
+        ) : view === 'table' ? (
           <>
             <div className={`table-responsive ${dense ? 'dense' : ''}`}>
               <table className="patients-table">
@@ -395,8 +418,8 @@ const PatientsView = ({ patients }) => {
                       </button>
                     </th>)}
                     {cols.gender && (<th>Gender</th>)}
-                    {cols.medical_conditions && (<th>Medical Conditions</th>)}
-                    {cols.heart_rate && (<th>
+                    {cols.medical_conditions && (<th className="med-conditions-col">Medical Conditions</th>)}
+                    {cols.heart_rate && (<th className="hr-col">
                       <button className="th-btn" onClick={() => onSort('heart_rate')} aria-sort={sort.key==='heart_rate'?sort.dir:'none'}>
                         Heart Rate {sort.key==='heart_rate' && (<i className={`fa-solid ${sort.dir==='asc'?'fa-sort-up':'fa-sort-down'}`}></i>)}
                       </button>
@@ -433,10 +456,14 @@ const PatientsView = ({ patients }) => {
                       {cols.age && (<td>{patient.age}</td>)}
                       {cols.gender && (<td>{patient.gender}</td>)}
                       {cols.medical_conditions && (
-                        <td className="truncate" title={patient.medical_conditions}>{patient.medical_conditions}</td>
+                        <td className="med-conditions">
+                          <div className="cond-cell truncate" title={patient.medical_conditions}>
+                            {patient.medical_conditions}
+                          </div>
+                        </td>
                       )}
                       {cols.heart_rate && (
-                        <td className={patient.heart_rate > 100 ? 'critical' : patient.heart_rate < 60 ? 'warning' : 'normal'}>
+                        <td className={`hr-value ${patient.heart_rate > 100 ? 'critical' : patient.heart_rate < 60 ? 'warning' : 'normal'}`}>
                           {patient.heart_rate || '--'} {patient.heart_rate ? 'bpm' : ''}
                         </td>
                       )}
@@ -479,6 +506,35 @@ const PatientsView = ({ patients }) => {
                   ))}
                 </tbody>
               </table>
+            </div>
+            <div className="pagination-bar">
+              <div className="pagination-info">Showing {from}-{to} of {total}</div>
+              <div className="pagination-controls">
+                <button className="page-btn" disabled={page <= 1} onClick={() => setPage(1)} title="First">
+                  <i className="fa-solid fa-angles-left"></i>
+                </button>
+                <button className="page-btn" disabled={page <= 1} onClick={() => setPage(p => Math.max(1, p - 1))} title="Previous">
+                  <i className="fa-solid fa-angle-left"></i>
+                </button>
+                <span className="page-state">Page {page} of {totalPages}</span>
+                <button className="page-btn" disabled={page >= totalPages} onClick={() => setPage(p => Math.min(totalPages, p + 1))} title="Next">
+                  <i className="fa-solid fa-angle-right"></i>
+                </button>
+                <button className="page-btn" disabled={page >= totalPages} onClick={() => setPage(totalPages)} title="Last">
+                  <i className="fa-solid fa-angles-right"></i>
+                </button>
+                <select className="form-control page-size" value={pageSize} onChange={e => setPageSize(parseInt(e.target.value, 10))} aria-label="Rows per page">
+                  {[10,25,50].map(n => <option key={n} value={n}>{n}/page</option>)}
+                </select>
+              </div>
+            </div>
+          </>
+        ) : (
+          <>
+            <div className={`patients-grid ${dense ? 'dense' : ''}`}>
+              {pageItems.map(p => (
+                <PatientTile key={p.patient_id} patient={p} onEdit={handleEditPatient} onDelete={handleDeletePatient} />)
+              )}
             </div>
             <div className="pagination-bar">
               <div className="pagination-info">Showing {from}-{to} of {total}</div>

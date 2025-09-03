@@ -3,8 +3,9 @@ import { AppProvider } from './context/AppContext';
 import Header from './components/Common/Header';
 import Navigation from './components/Common/Navigation';
 import LoadingSpinner from './components/Common/LoadingSpinner';
+import Footer from './components/Common/Footer';
 import ErrorAlert from './components/Common/ErrorAlert';
-import DashboardView from './components/Dashboard/DashboardView';
+import DashboardView from './components/Dashboard/DashboardView.js';
 import { useAppContext } from './context/AppContext';
 import './App.css';
 
@@ -81,17 +82,7 @@ const MainContent = () => {
             {renderContent()}
           </div>
 
-          {/* Footer */}
-          <footer className="footer">
-            <div className="footer-content">
-              <h6>🏥 MediSys Diagnostics Ltd.</h6>
-              <p>
-                Real-time Patient Monitoring Dashboard System
-                <span> • </span>
-                <span className="system-status">System Online</span>
-              </p>
-            </div>
-          </footer>
+          <Footer />
         </main>
       </div>
     </div>
