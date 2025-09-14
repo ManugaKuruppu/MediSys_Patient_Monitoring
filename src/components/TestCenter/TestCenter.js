@@ -28,14 +28,7 @@ const TestCenter = ({ patients }) => {
               <li><strong>Medium:</strong> O2 90–94%</li>
             </ul>
           </div>
-          <div className="side-card">
-            <h4 className="side-title"><i className="fa-solid fa-lightbulb"></i> Tips</h4>
-            <ul className="side-list">
-              <li>Use presets to quickly test normal, warning, and critical scenarios.</li>
-              <li>Pick a patient with “Online” status for realistic flows.</li>
-              <li>Check Alerts to see triggered items grouped by time.</li>
-            </ul>
-          </div>
+         
         </aside>
       </div>
 
